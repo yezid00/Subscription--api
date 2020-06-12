@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+
 use App\Transaction;
+use App\User;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Resources\TransactionResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Auth\Guard;
 
 class TransactionController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +24,7 @@ class TransactionController extends Controller
     {
         $transactions = Transaction::all();
         return response([
-            'transactions' => TransactionResource($transactions),
+            'transactions' => new TransactionResource($transactions),
             'message' => 'All transaction'
         ]);
     }
@@ -32,18 +37,19 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $validator = Validator::make($data,[
-           'user_id'=>'required|numeric',
+        
+        $validator = $this->validate($request,[
            'plan_id'=>'required|numeric',
            'subscription_id'=>'required|numeric'   
         ]);
+
         $transaction = new Transaction;
         $transaction->user_id = auth()->user()->id;
         $transaction->plan_id = $request->plan_id;
         $transaction->subscription_id = $request->subscription_id;
 
-        $transaction = Transaction::create($data);
+        $transaction->save();
+
         return response([
             'transaction' =>new TransactionResource($transaction),
             'message' => 'Transaction saved'

@@ -7,10 +7,11 @@ use App\Subscription;
 use Illuminate\Http\Request;
 use App\Http\Resources\SubscriptionResource;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Contracts\Auth\Guard;
 
 class SubscriptionController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -33,21 +34,19 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $Validator = Validator::make([$data,
-            'expiry_date' => 'required|date'
+        
+        $validator = $this->validate($request,[
+            'expiry_date' => 'required|date',
+            'plan_id' => 'required',
         ]);
-        if($validator->fails()){
-            return response([
-                'error'=>$validator->errors(),'Validation Error'
-            ]);
-        }
+
+        
         $subscription = new Subscription;
         $subscription->user_id = auth()->user()->id;
         $subscription->plan_id = $request->plan_id;
-        $subscription->expiry_date = $request->expiry_date;
+        $subscription->expiry_date = $request->expiry_date; //Y-m-d
 
-        $subscription = Subscription::create($data);
+        $subscription->save();
         return response([
             'subscription' => new SubscriptionResource($subscription),
             'message' => 'Subscription successful'

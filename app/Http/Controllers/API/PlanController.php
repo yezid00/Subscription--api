@@ -7,9 +7,11 @@ use App\Plan;
 use Illuminate\Http\Request;
 use App\Http\Resources\PlanResource;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Auth\Guard;
 
 class PlanController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
