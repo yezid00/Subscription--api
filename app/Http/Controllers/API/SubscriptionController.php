@@ -21,7 +21,7 @@ class SubscriptionController extends Controller
     {
         $subscriptions = Subscription::all();
         return response([
-            'subscriptions' => SubscriptionResource($subscriptions),
+            'subscriptions' =>new SubscriptionResource($subscriptions),
             'message' => 'All subscription'
         ]);
     }
