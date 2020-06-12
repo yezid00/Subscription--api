@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 Route::post('register','API\AuthController@register');
 Route::post('/login','Api\AuthController@login');
 
 Route::apiResource('/plans','Api\PlanController')->middleware('auth');
 Route::apiResource('/subscriptions','Api\SubscriptionController')->middleware('auth');
 Route::apiResource('/transactions','Api\TransactionController')->middleware('auth');
+*/
