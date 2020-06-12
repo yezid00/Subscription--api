@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 use App\User;
 
@@ -36,6 +37,7 @@ class AuthController extends Controller
     	return response([
     		'user'=>auth()->user(),
     		'access_token'=>$accessToken,
+            'message' => 'Login successful'
     	]);
     }
 }
