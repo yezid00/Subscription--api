@@ -76,6 +76,7 @@ class PlanController extends Controller
     public function update(Request $request, Plan $plan)
     {
         $plan->update($request->all());
+
         return response([
             'plan' => new PlanResource($plan),
             'message' => 'Plan Updated'
@@ -92,7 +93,7 @@ class PlanController extends Controller
     {
         $plan->delete();
         return response([
-            'message'=>'Plan deleted'
+            'message'=>'Plan'. $plan->plan_name. "deleted'
         ]);
     }
 }

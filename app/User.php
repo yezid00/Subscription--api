@@ -19,13 +19,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
+    
     
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function subscription(){
-        return $this->hasOne('App\Subscription');
+    public function subscriptions(){
+        return $this->hasMany('App\Subscription');
     }
     public function transactions(){
         return $this->hasMany('App\Transaction');

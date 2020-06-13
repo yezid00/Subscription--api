@@ -26,3 +26,4 @@ Route::post('/login','Api\AuthController@login');
 Route::apiResource('/plans','Api\PlanController')->middleware('auth:api');
 Route::apiResource('/subscriptions','Api\SubscriptionController')->middleware('auth:api');
 Route::apiResource('/transactions','Api\TransactionController')->middleware('auth:api');
+Route::apiResource('/users','Api\UserController')->middleware('auth:api');
