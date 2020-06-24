@@ -93,7 +93,7 @@ class PlanController extends Controller
     {
         $plan->delete();
         return response([
-            'message'=>'Plan'. $plan->plan_name. "deleted'
+            'message'=>'Plan'. $plan->plan_name. "deleted"
         ]);
     }
 }

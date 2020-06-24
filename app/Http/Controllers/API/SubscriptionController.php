@@ -77,12 +77,11 @@ class SubscriptionController extends Controller
      */
     public function update(Request $request, Subscription $subscription)
     {
-        $data = $request->all();
-        $subscription->update($data);
+        $subscription->update($request->all());
         return response([
             'subscription' => new SubscriptionResource($subscription),
             'message' => 'Subscription details updated'
-        ],202);
+        ],200);
     }
 
     /**
